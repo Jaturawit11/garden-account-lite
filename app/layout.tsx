@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";
-import { Noto_Sans_Thai } from "next/font/google";
+import { Mali, Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/BottomNav";
 
@@ -8,6 +8,12 @@ const noto = Noto_Sans_Thai({
   subsets: ["thai", "latin"],
   variable: "--font-noto",
   weight: ["400", "600", "700", "800"]
+});
+
+const mali = Mali({
+  subsets: ["thai", "latin"],
+  variable: "--font-mali",
+  weight: ["400", "500", "600", "700"]
 });
 
 export const metadata: Metadata = {
@@ -36,13 +42,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="th">
-      <body className={noto.variable}>
+      <body className={`${noto.variable} ${mali.variable}`}>
         <div className="app-shell">
           <header className="topbar">
             <div className="topbar-inner">
               <div className="brand">
                 <span className="brand-mark">
-                  <Image src="/nisa-leaf.png" alt="โลโก้ร้าน Nisa" width={42} height={42} priority />
+                  <Image src="/nisa-leaf.png" alt="โลโก้ร้าน Nisa" width={54} height={54} priority />
                 </span>
                 <span className="brand-copy">
                   <strong>Accounting Nisa Plant</strong>
