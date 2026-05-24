@@ -41,7 +41,7 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
   const totals = useMemo(() => saleTotals(form), [form]);
   const isSale = form.type === "sale";
   const needsWalletFrom = ["plant_purchase", "business_expense", "personal_expense", "wallet_transfer"].includes(form.type);
-  const needsWalletTo = ["sale", "wallet_transfer", "other_income"].includes(form.type);
+  const needsWalletTo = ["sale", "wallet_transfer", "opening_balance", "other_income"].includes(form.type);
 
   function update<K extends keyof TransactionInput>(key: K, value: TransactionInput[K]) {
     setForm((current) => ({ ...current, [key]: value }));
@@ -54,7 +54,7 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
       sale_items: type === "sale" ? current.sale_items?.length ? current.sale_items : [{ ...emptySaleItem }] : [],
       customer_name: type === "sale" ? current.customer_name : "",
       wallet_from: type === "wallet_transfer" ? "time" : ["plant_purchase", "business_expense", "personal_expense"].includes(type) ? current.wallet_from ?? "time" : null,
-      wallet_to: ["sale", "other_income"].includes(type) ? current.wallet_to ?? "time" : type === "wallet_transfer" ? "nisa" : null
+      wallet_to: ["sale", "opening_balance", "other_income"].includes(type) ? current.wallet_to ?? "time" : type === "wallet_transfer" ? "nisa" : null
     }));
   }
 

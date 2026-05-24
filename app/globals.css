@@ -136,9 +136,10 @@ button {
 }
 
 .brand-copy strong {
+  font-family: var(--font-alex), var(--font-anuphan), system-ui, sans-serif;
   color: #15241a;
-  font-size: 16px;
-  font-weight: 800;
+  font-size: 25px;
+  font-weight: 400;
   letter-spacing: 0;
 }
 
@@ -258,11 +259,12 @@ p {
 }
 
 h1 {
+  font-family: var(--font-alex), var(--font-anuphan), system-ui, sans-serif;
   margin-bottom: 10px;
-  font-size: clamp(32px, 6vw, 58px);
-  line-height: 1.02;
+  font-size: clamp(46px, 8vw, 82px);
+  line-height: 0.92;
   letter-spacing: 0;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 h2 {

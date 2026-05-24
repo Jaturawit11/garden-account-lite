@@ -6,6 +6,7 @@ export type TransactionType =
   | "business_expense"
   | "personal_expense"
   | "wallet_transfer"
+  | "opening_balance"
   | "other_income";
 
 export type PaymentStatus = "paid" | "unpaid" | "partial";
@@ -46,6 +47,7 @@ export const transactionTypeLabels: Record<TransactionType, string> = {
   business_expense: "รายจ่ายธุรกิจ",
   personal_expense: "รายจ่ายส่วนตัว",
   wallet_transfer: "โอน Time/Nisa",
+  opening_balance: "เงินตั้งต้นกระเป๋า",
   other_income: "รายรับอื่น"
 };
 

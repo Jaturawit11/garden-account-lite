@@ -82,6 +82,10 @@ export function summarizeTransactions(transactions: Transaction[]): MoneySummary
         summary.wallets[transaction.wallet_to] += amount;
       }
 
+      if (transaction.type === "opening_balance" && transaction.wallet_to) {
+        summary.wallets[transaction.wallet_to] += amount;
+      }
+
       if (transaction.type === "other_income") {
         summary.profit += amount;
         if (transaction.wallet_to) summary.wallets[transaction.wallet_to] += paid || amount;
@@ -178,6 +182,7 @@ export function typeMatches(transaction: Transaction, type: TransactionType | "a
 
 export function transactionCashImpact(transaction: Transaction) {
   if (transaction.type === "sale" || transaction.type === "other_income") return Number(transaction.paid_amount || transaction.amount || 0);
+  if (transaction.type === "opening_balance") return Number(transaction.amount || 0);
   if (transaction.type === "plant_purchase" || transaction.type === "business_expense" || transaction.type === "personal_expense") {
     return -Number(transaction.amount || 0);
   }

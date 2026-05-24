@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";
-import { Anuphan, Noto_Sans_Thai } from "next/font/google";
+import { Alex_Brush, Anuphan, Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/BottomNav";
 
@@ -14,6 +14,12 @@ const anuphan = Anuphan({
   subsets: ["thai", "latin"],
   variable: "--font-anuphan",
   weight: ["400", "500", "600", "700"]
+});
+
+const alexBrush = Alex_Brush({
+  subsets: ["latin"],
+  variable: "--font-alex",
+  weight: "400"
 });
 
 export const metadata: Metadata = {
@@ -42,7 +48,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="th">
-      <body className={`${noto.variable} ${anuphan.variable}`}>
+      <body className={`${noto.variable} ${anuphan.variable} ${alexBrush.variable}`}>
         <div className="app-shell">
           <header className="topbar">
             <div className="topbar-inner">
