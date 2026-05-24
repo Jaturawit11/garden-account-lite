@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";
-import { Mali, Noto_Sans_Thai } from "next/font/google";
+import { Anuphan, Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/BottomNav";
 
@@ -10,9 +10,9 @@ const noto = Noto_Sans_Thai({
   weight: ["400", "600", "700", "800"]
 });
 
-const mali = Mali({
+const anuphan = Anuphan({
   subsets: ["thai", "latin"],
-  variable: "--font-mali",
+  variable: "--font-anuphan",
   weight: ["400", "500", "600", "700"]
 });
 
@@ -42,7 +42,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="th">
-      <body className={`${noto.variable} ${mali.variable}`}>
+      <body className={`${noto.variable} ${anuphan.variable}`}>
         <div className="app-shell">
           <header className="topbar">
             <div className="topbar-inner">

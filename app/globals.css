@@ -1,5 +1,5 @@
 :root {
-  --bg: #f6f3ee;
+  --bg: #f5f2ec;
   --surface: rgba(255, 255, 255, 0.82);
   --surface-solid: #ffffff;
   --surface-soft: #eef7f0;
@@ -12,8 +12,8 @@
   --teal: #087f8c;
   --rose: #b84a62;
   --amber: #a96f00;
-  --shadow: 0 18px 45px rgba(24, 34, 27, 0.08);
-  --shadow-soft: 0 8px 22px rgba(24, 34, 27, 0.06);
+  --shadow: 0 22px 60px rgba(24, 34, 27, 0.1);
+  --shadow-soft: 0 10px 26px rgba(24, 34, 27, 0.07);
   --blur: blur(22px) saturate(1.18);
   --radius-xl: 28px;
   --radius-lg: 22px;
@@ -34,7 +34,7 @@ body {
     radial-gradient(circle at bottom right, rgba(23, 79, 53, 0.1), transparent 32rem),
     var(--bg);
   color: var(--ink);
-  font-family: var(--font-mali), var(--font-noto), system-ui, sans-serif;
+  font-family: var(--font-anuphan), var(--font-noto), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -76,7 +76,7 @@ button {
 }
 
 .topbar {
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.82);
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
@@ -90,8 +90,8 @@ button {
   content: "";
   position: absolute;
   inset: auto 0 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--leaf-clay), var(--leaf-dark), var(--green));
+  height: 2px;
+  background: linear-gradient(90deg, rgba(189, 116, 95, 0.85), rgba(23, 79, 53, 0.9), rgba(47, 125, 75, 0.75));
 }
 
 .topbar-inner,
@@ -103,22 +103,23 @@ button {
 
 .brand {
   display: flex;
-  gap: 12px;
+  gap: 13px;
   align-items: center;
   min-height: 44px;
   font-weight: 700;
 }
 
 .brand-mark {
-  width: 54px;
-  height: 54px;
-  border-radius: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
+  border: 1px solid rgba(189, 116, 95, 0.18);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow-soft);
+  padding: 5px;
 }
 
 .brand-mark img {
@@ -130,19 +131,20 @@ button {
 
 .brand-copy {
   display: grid;
-  gap: 1px;
+  gap: 2px;
   line-height: 1.15;
 }
 
 .brand-copy strong {
-  font-size: 17px;
-  font-weight: 700;
+  color: #15241a;
+  font-size: 16px;
+  font-weight: 800;
   letter-spacing: 0;
 }
 
 .brand-copy small {
   color: var(--leaf-clay);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -195,18 +197,27 @@ button {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 34px 0 18px;
+  margin-top: 22px;
+  border: 1px solid rgba(24, 34, 27, 0.08);
+  border-radius: 34px;
+  padding: clamp(22px, 4vw, 42px);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 247, 242, 0.72)),
+    radial-gradient(circle at 86% 22%, rgba(47, 125, 75, 0.12), transparent 20rem);
+  box-shadow: var(--shadow);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 }
 
 .hero::after {
   content: "";
   position: absolute;
-  right: 0;
-  top: 4px;
-  width: 118px;
-  height: 118px;
+  right: -10px;
+  top: -18px;
+  width: 190px;
+  height: 190px;
   background: url("/nisa-leaf.png") center / cover no-repeat;
-  opacity: 0.055;
+  opacity: 0.06;
   transform: rotate(7deg);
   pointer-events: none;
 }
@@ -215,26 +226,28 @@ button {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 18px;
+  gap: clamp(16px, 3vw, 28px);
   align-items: center;
 }
 
 .hero-brand img {
-  width: 82px;
-  height: 82px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
+  width: 94px;
+  height: 94px;
+  border: 1px solid rgba(189, 116, 95, 0.16);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.88);
   object-fit: contain;
-  box-shadow: none;
+  padding: 8px;
+  box-shadow: 0 18px 42px rgba(24, 34, 27, 0.12);
   transform: none;
 }
 
 .eyebrow {
   margin: 0 0 6px;
   color: var(--leaf-clay);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 h1,
@@ -245,11 +258,11 @@ p {
 }
 
 h1 {
-  margin-bottom: 8px;
-  font-size: clamp(28px, 6.2vw, 48px);
-  line-height: 1.08;
+  margin-bottom: 10px;
+  font-size: clamp(32px, 6vw, 58px);
+  line-height: 1.02;
   letter-spacing: 0;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 h2 {
@@ -728,10 +741,20 @@ textarea.control {
   }
 
   .hero::after {
-    width: 88px;
-    height: 88px;
-    right: -18px;
-    top: 12px;
+    width: 130px;
+    height: 130px;
+    right: -36px;
+    top: -12px;
+  }
+
+  .hero {
+    border-radius: 26px;
+  }
+
+  .hero-brand img {
+    width: 82px;
+    height: 82px;
+    border-radius: 24px;
   }
 
   .metrics {
@@ -786,17 +809,16 @@ textarea.control {
 
 @media (min-width: 820px) {
   .hero {
-    max-width: 760px;
-    padding-top: 42px;
+    max-width: none;
   }
 
   .hero-brand {
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 112px 1fr;
   }
 
   .hero-brand img {
-    width: 100px;
-    height: 100px;
+    width: 112px;
+    height: 112px;
   }
 
   .hero::after {
