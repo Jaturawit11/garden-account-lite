@@ -13,8 +13,15 @@ const noto = Noto_Sans_Thai({
 export const metadata: Metadata = {
   title: "Garden Account Lite",
   description: "ระบบบัญชีสวนไม้แบบง่าย",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Garden Lite",
+    statusBarStyle: "default"
+  },
   icons: {
     icon: "/nisa-leaf.png",
+    shortcut: "/nisa-leaf.png",
     apple: "/nisa-leaf.png"
   }
 };
