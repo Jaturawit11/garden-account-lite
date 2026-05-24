@@ -14,7 +14,7 @@ type MetricCardProps = {
 export function MetricCard({ label, value, icon: Icon, change, tone = "normal", signed = false }: MetricCardProps) {
   const valueTone = tone === "auto" ? moneyTone(value) : tone;
   const changeClass = change ? (change.amount >= 0 ? "good" : "bad") : "";
-  const sign = change && change.amount > 0 ? "+" : "";
+  const changeSign = change && change.amount > 0 ? "+" : change && change.amount < 0 ? "-" : "";
   const showTrend = value !== 0 && (signed || tone === "auto" || tone === "good" || tone === "bad");
   const TrendIcon = value >= 0 ? ArrowUpRight : ArrowDownRight;
 
@@ -34,9 +34,9 @@ export function MetricCard({ label, value, icon: Icon, change, tone = "normal", 
       </div>
       {change && (
         <div className={`metric-change ${changeClass}`}>
-          {sign}
-          {change.percent.toFixed(1)}% | {sign}
-          {toMoney(change.amount)} จากเดือนก่อน
+          เทียบเดือนก่อน {changeSign}
+          {Math.abs(change.percent).toFixed(1)}% | {changeSign}
+          {toMoney(Math.abs(change.amount))}
         </div>
       )}
     </article>

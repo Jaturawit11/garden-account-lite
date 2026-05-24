@@ -11,12 +11,12 @@ const noto = Noto_Sans_Thai({
 });
 
 export const metadata: Metadata = {
-  title: "Garden Account Lite",
+  title: "Accounting Nisa Plant",
   description: "ระบบบัญชีสวนไม้แบบง่าย",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
-    title: "Garden Lite",
+    title: "Nisa Plant",
     statusBarStyle: "default"
   },
   icons: {
@@ -45,8 +45,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   <Image src="/nisa-leaf.png" alt="โลโก้ร้าน Nisa" width={42} height={42} priority />
                 </span>
                 <span className="brand-copy">
-                  <strong>Garden Account Lite</strong>
-                  <small>Nisa Garden</small>
+                  <strong>Accounting Nisa Plant</strong>
+                  <small>บัญชีสวนไม้</small>
                 </span>
               </div>
               <BottomNav />

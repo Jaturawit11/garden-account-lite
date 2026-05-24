@@ -43,7 +43,7 @@ export default function DashboardPage() {
           <Image src="/nisa-leaf.png" alt="โลโก้ร้าน Nisa" width={92} height={92} priority />
           <div>
             <p className="eyebrow">แดชบอร์ด</p>
-            <h1>บัญชีสวนไม้แบบเบา แต่เห็นเงินครบ</h1>
+            <h1>Accounting Nisa Plant</h1>
             <p className="subtle">ยอดเดือนนี้ กระเป๋า Time/Nisa ทุนค้าง และคาดการณ์สิ้นเดือนจากค่าเฉลี่ยรายวัน</p>
           </div>
         </div>
