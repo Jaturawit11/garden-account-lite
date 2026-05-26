@@ -10,6 +10,7 @@ export type TransactionType =
   | "other_income";
 
 export type PaymentStatus = "paid" | "unpaid" | "partial";
+export type CustomerCountry = "TH" | "US" | "PH" | "VN" | "ID" | "SG";
 
 export type SaleItem = {
   id?: string;
@@ -26,6 +27,7 @@ export type Transaction = {
   type: TransactionType;
   description: string | null;
   customer_name: string | null;
+  customer_country: CustomerCountry | null;
   wallet_from: WalletName | null;
   wallet_to: WalletName | null;
   amount: number;
@@ -60,4 +62,13 @@ export const paymentStatusLabels: Record<PaymentStatus, string> = {
 export const walletLabels: Record<WalletName, string> = {
   time: "Time",
   nisa: "Nisa"
+};
+
+export const customerCountryLabels: Record<CustomerCountry, string> = {
+  TH: "🇹🇭 ไทย",
+  US: "🇺🇸 เมกา",
+  PH: "🇵🇭 ฟิลิปปินส์",
+  VN: "🇻🇳 เวียดนาม",
+  ID: "🇮🇩 อินโด",
+  SG: "🇸🇬 สิงคโปร์"
 };

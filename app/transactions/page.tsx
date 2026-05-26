@@ -6,7 +6,7 @@ import { TransactionForm } from "@/components/TransactionForm";
 import { Toast } from "@/components/Toast";
 import { billCode, moneyTone, saleTotals, toMoney, toSignedMoney, transactionCashImpact, typeMatches } from "@/lib/finance";
 import { deleteTransaction, fetchTransactions, saveTransaction } from "@/lib/supabase";
-import { paymentStatusLabels, transactionTypeLabels } from "@/lib/types";
+import { customerCountryLabels, paymentStatusLabels, transactionTypeLabels } from "@/lib/types";
 import type { Transaction, TransactionType } from "@/lib/types";
 
 type TypeFilter = TransactionType | "all";
@@ -35,6 +35,7 @@ export default function TransactionsPage() {
       const typeOk = typeMatches(transaction, type);
       const haystack = [
         transaction.customer_name,
+        transaction.customer_country ? customerCountryLabels[transaction.customer_country] : null,
         transaction.description,
         transaction.note,
         ...(transaction.sale_items ?? []).map((item) => item.plant_name)
@@ -128,7 +129,10 @@ function TransactionCard({ transaction, onEdit, onDelete }: { transaction: Trans
       <div className="transaction-head">
         <div>
           <span className="pill">{transactionTypeLabels[transaction.type]}</span>
-          <h3>{transaction.customer_name || transaction.description || "ไม่มีชื่อรายการ"}</h3>
+          <h3>
+            {transaction.customer_country && <span className="country-flag">{customerCountryLabels[transaction.customer_country].split(" ")[0]}</span>}
+            {transaction.customer_name || transaction.description || "ไม่มีชื่อรายการ"}
+          </h3>
           <div className="meta">
             {billCode(transaction.id)} | {transaction.transaction_date} | {paymentStatusLabels[transaction.payment_status]}
             {transaction.payment_status === "partial" && ` | จ่ายแล้ว ${toMoney(transaction.paid_amount)}`}

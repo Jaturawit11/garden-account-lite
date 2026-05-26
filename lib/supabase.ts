@@ -47,6 +47,7 @@ export async function saveTransaction(input: TransactionInput): Promise<void> {
     type: normalized.type,
     description: normalized.description || null,
     customer_name: normalized.customer_name || null,
+    customer_country: normalized.customer_country || null,
     wallet_from: normalized.wallet_from,
     wallet_to: normalized.wallet_to,
     amount: Number(normalized.amount || 0),

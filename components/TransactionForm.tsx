@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import { CheckCircle2, Circle, Plus, Save, Trash2 } from "lucide-react";
 import { moneyTone, saleTotals, todayString, toMoney, toSignedMoney } from "@/lib/finance";
-import { paymentStatusLabels, transactionTypeLabels, walletLabels } from "@/lib/types";
-import type { SaleItem, Transaction, TransactionInput, TransactionType, WalletName } from "@/lib/types";
+import { customerCountryLabels, paymentStatusLabels, transactionTypeLabels, walletLabels } from "@/lib/types";
+import type { CustomerCountry, SaleItem, Transaction, TransactionInput, TransactionType, WalletName } from "@/lib/types";
 
 type TransactionFormProps = {
   initial?: Transaction | null;
@@ -28,6 +28,7 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
       type: "sale",
       description: "",
       customer_name: "",
+      customer_country: null,
       wallet_from: null,
       wallet_to: "time",
       amount: 0,
@@ -53,6 +54,7 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
       type,
       sale_items: type === "sale" ? current.sale_items?.length ? current.sale_items : [{ ...emptySaleItem }] : [],
       customer_name: type === "sale" ? current.customer_name : "",
+      customer_country: type === "sale" ? current.customer_country : null,
       wallet_from: type === "wallet_transfer" ? "time" : ["plant_purchase", "business_expense", "personal_expense"].includes(type) ? current.wallet_from ?? "time" : null,
       wallet_to: ["sale", "opening_balance", "other_income"].includes(type) ? current.wallet_to ?? "time" : type === "wallet_transfer" ? "nisa" : null
     }));
@@ -91,6 +93,7 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
           type: "sale",
           description: "",
           customer_name: "",
+          customer_country: null,
           wallet_from: null,
           wallet_to: "time",
           amount: 0,
@@ -128,6 +131,15 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
             <label className="field">
               <span>ลูกค้า</span>
               <input className="control" value={form.customer_name ?? ""} onChange={(event) => update("customer_name", event.target.value)} />
+            </label>
+            <label className="field">
+              <span>ประเทศ</span>
+              <select className="control" value={form.customer_country ?? ""} onChange={(event) => update("customer_country", (event.target.value || null) as CustomerCountry | null)}>
+                <option value="">ไม่ระบุ</option>
+                {Object.entries(customerCountryLabels).map(([value, label]) => (
+                  <option key={value} value={value}>{label}</option>
+                ))}
+              </select>
             </label>
             <label className="field">
               <span>รับเงินเข้า</span>
