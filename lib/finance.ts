@@ -62,7 +62,6 @@ export function summarizeTransactions(transactions: Transaction[]): MoneySummary
         const totals = saleTotals(transaction);
         summary.sales += totals.sales;
         summary.profit += totals.profit;
-        summary.gardenCapital -= totals.cost;
         summary.billCount += 1;
         if (transaction.wallet_to) summary.wallets[transaction.wallet_to] += paid;
       }
