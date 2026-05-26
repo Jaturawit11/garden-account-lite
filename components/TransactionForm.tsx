@@ -108,7 +108,7 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
   return (
     <div className="card panel">
       <div className="form-grid">
-        <div className="two-col">
+        <div className="compact-row compact-row-top">
           <label className="field">
             <span>วันที่</span>
             <input className="control" type="date" value={form.transaction_date} onChange={(event) => update("transaction_date", event.target.value)} />
@@ -124,7 +124,7 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
         </div>
 
         {isSale && (
-          <div className="two-col">
+          <div className="compact-row compact-row-sale">
             <label className="field">
               <span>ลูกค้า</span>
               <input className="control" value={form.customer_name ?? ""} onChange={(event) => update("customer_name", event.target.value)} />
@@ -168,27 +168,25 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
           <section className="grid">
             {(form.sale_items ?? []).map((item, index) => (
               <div className="sale-item" key={index}>
-                <label className="field">
+                <label className="field sale-plant-field">
                   <span>ชื่อต้นไม้</span>
                   <input className="control" value={item.plant_name} onChange={(event) => updateItem(index, "plant_name", event.target.value)} />
                 </label>
-                <div className="three-col">
-                  <label className="field">
-                    <span>ทุน</span>
-                    <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(item.cost)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => updateItem(index, "cost", event.target.value)} />
-                  </label>
-                  <label className="field">
-                    <span>ราคาขาย</span>
-                    <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(item.sale_price)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => updateItem(index, "sale_price", event.target.value)} />
-                  </label>
-                  <label className="field">
-                    <span>กำไร</span>
-                    <input className={`control ${Number(item.sale_price || 0) - Number(item.cost || 0) < 0 ? "money-negative" : "money-positive"}`} readOnly value={Number(item.sale_price || 0) - Number(item.cost || 0)} />
-                  </label>
-                </div>
+                <label className="field sale-money-field">
+                  <span>ทุน</span>
+                  <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(item.cost)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => updateItem(index, "cost", event.target.value)} />
+                </label>
+                <label className="field sale-money-field">
+                  <span>ราคาขาย</span>
+                  <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(item.sale_price)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => updateItem(index, "sale_price", event.target.value)} />
+                </label>
+                <label className="field sale-money-field">
+                  <span>กำไร</span>
+                  <input className={`control ${Number(item.sale_price || 0) - Number(item.cost || 0) < 0 ? "money-negative" : "money-positive"}`} readOnly value={Number(item.sale_price || 0) - Number(item.cost || 0)} />
+                </label>
                 {(form.sale_items ?? []).length > 1 && (
-                  <button className="btn secondary" type="button" onClick={() => update("sale_items", (form.sale_items ?? []).filter((_, itemIndex) => itemIndex !== index))}>
-                    <Trash2 size={16} /> ลบรายการย่อย
+                  <button className="btn secondary icon sale-remove" type="button" title="ลบรายการย่อย" onClick={() => update("sale_items", (form.sale_items ?? []).filter((_, itemIndex) => itemIndex !== index))}>
+                    <Trash2 size={16} />
                   </button>
                 )}
               </div>
@@ -206,37 +204,41 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
         )}
 
         <div className="grid">
-          <label className="field">
-            <span>สถานะจ่ายเงิน</span>
-            <div className="segmented" role="group" aria-label="สถานะจ่ายเงิน">
-              {(Object.keys(paymentStatusLabels) as TransactionInput["payment_status"][]).map((status) => {
-                const active = form.payment_status === status;
-                const Icon = active ? CheckCircle2 : Circle;
-                return (
-                  <button
-                    className={`segment ${active ? "active" : ""}`}
-                    key={status}
-                    type="button"
-                    onClick={() => update("payment_status", status)}
-                  >
-                    <Icon size={17} aria-hidden />
-                    {paymentStatusLabels[status]}
-                  </button>
-                );
-              })}
-            </div>
-          </label>
-          {form.payment_status === "partial" && (
-            <div className="two-col">
+          {isSale && (
+            <>
               <label className="field">
-                <span>จ่ายแล้วบางส่วน</span>
-                <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(form.paid_amount)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => update("paid_amount", numberFromInput(event.target.value))} />
+                <span>สถานะจ่ายเงิน</span>
+                <div className="segmented" role="group" aria-label="สถานะจ่ายเงิน">
+                  {(Object.keys(paymentStatusLabels) as TransactionInput["payment_status"][]).map((status) => {
+                    const active = form.payment_status === status;
+                    const Icon = active ? CheckCircle2 : Circle;
+                    return (
+                      <button
+                        className={`segment ${active ? "active" : ""}`}
+                        key={status}
+                        type="button"
+                        onClick={() => update("payment_status", status)}
+                      >
+                        <Icon size={17} aria-hidden />
+                        {paymentStatusLabels[status]}
+                      </button>
+                    );
+                  })}
+                </div>
               </label>
-              <label className="field">
-                <span>ค้างจ่าย</span>
-                <input className="control money-negative" readOnly value={Math.max(0, (isSale ? totals.sales : Number(form.amount || 0)) - Number(form.paid_amount || 0)).toLocaleString("th-TH")} />
-              </label>
-            </div>
+              {form.payment_status === "partial" && (
+                <div className="two-col">
+                  <label className="field">
+                    <span>จ่ายแล้วบางส่วน</span>
+                    <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(form.paid_amount)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => update("paid_amount", numberFromInput(event.target.value))} />
+                  </label>
+                  <label className="field">
+                    <span>ค้างจ่าย</span>
+                    <input className="control money-negative" readOnly value={Math.max(0, totals.sales - Number(form.paid_amount || 0)).toLocaleString("th-TH")} />
+                  </label>
+                </div>
+              )}
+            </>
           )}
           <label className="field">
             <span>หมายเหตุ</span>

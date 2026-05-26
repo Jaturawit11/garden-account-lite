@@ -496,6 +496,16 @@ textarea.control {
   gap: var(--grid-gap);
 }
 
+.compact-row {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.compact-row-top,
+.compact-row-sale {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
 .toolbar {
   display: grid;
   gap: 10px;
@@ -578,6 +588,15 @@ textarea.control {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: rgba(251, 252, 251, 0.72);
+}
+
+.sale-plant-field,
+.sale-money-field {
+  min-width: 0;
+}
+
+.sale-remove {
+  align-self: end;
 }
 
 .list {
@@ -717,6 +736,19 @@ textarea.control {
 
   .toolbar {
     grid-template-columns: 1.4fr repeat(3, 1fr);
+    align-items: end;
+  }
+
+  .compact-row-top {
+    grid-template-columns: 180px minmax(240px, 1fr);
+  }
+
+  .compact-row-sale {
+    grid-template-columns: minmax(240px, 1fr) 190px;
+  }
+
+  .sale-item {
+    grid-template-columns: minmax(260px, 1fr) 150px 150px 150px auto;
     align-items: end;
   }
 }

@@ -12,9 +12,9 @@ export default function AddPage() {
     <main className="page">
       <Toast message={message} onClose={() => setMessage("")} />
       <section className="hero">
-        <p className="eyebrow">เพิ่มรายการ</p>
-        <h1>ลงบิลขาย ซื้อไม้ รายจ่าย และโอนเงิน</h1>
-        <p className="subtle">บิลขายเพิ่มรายการย่อยได้หลายต้น ระบบรวมทุน ราคาขาย และกำไรให้อัตโนมัติ</p>
+        <p className="eyebrow">Add Entry</p>
+        <h1>New Transaction</h1>
+        <p className="subtle">เพิ่มบิลขาย ซื้อไม้ รายจ่าย โอนเงิน และเงินตั้งต้น</p>
       </section>
       <TransactionForm
         onSubmit={async (input) => {
