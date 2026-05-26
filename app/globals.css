@@ -529,7 +529,7 @@ textarea.control {
 }
 
 .segment {
-  min-height: 44px;
+  min-height: var(--tap-size);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   display: inline-flex;
