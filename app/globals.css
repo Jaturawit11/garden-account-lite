@@ -14,7 +14,7 @@
   --amber: #a96f00;
   --shadow: 0 22px 60px rgba(24, 34, 27, 0.1);
   --shadow-soft: 0 10px 26px rgba(24, 34, 27, 0.07);
-  --blur: blur(22px) saturate(1.18);
+  --blur: blur(14px) saturate(1.08);
   --radius-xl: 28px;
   --radius-lg: 22px;
   --radius-md: 16px;
@@ -166,8 +166,6 @@ button {
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.78);
   box-shadow: var(--shadow);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
 }
 
 .nav-link {
@@ -293,7 +291,7 @@ h3 {
 }
 
 .metrics {
-  grid-template-columns: repeat(auto-fit, minmax(166px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--grid-gap);
 }
 
@@ -304,14 +302,7 @@ h3 {
   border-radius: var(--radius-lg);
   background: var(--surface);
   box-shadow: var(--shadow);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-}
-
-.card:hover {
-  border-color: rgba(47, 125, 75, 0.18);
-  box-shadow: 0 22px 58px rgba(24, 34, 27, 0.1);
+  transition: border-color 160ms ease;
 }
 
 .card::after {
@@ -351,14 +342,20 @@ h3 {
 
 .metric-value {
   margin-top: 12px;
-  overflow-wrap: anywhere;
-  font-size: clamp(22px, 5.4vw, 29px);
+  min-width: 0;
+  overflow-wrap: normal;
+  font-size: clamp(22px, 2.05vw, 29px);
   font-family: var(--font-noto), system-ui, sans-serif;
   font-weight: 800;
   display: flex;
   align-items: center;
   gap: 7px;
   line-height: 1.15;
+}
+
+.metric-value > span:first-child {
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .trend-arrow {
@@ -373,13 +370,13 @@ h3 {
 .trend-arrow.up {
   background: rgba(47, 125, 75, 0.1);
   color: var(--green);
-  animation: arrow-rise 1.5s ease-in-out infinite;
+  animation: arrow-rise 1.5s ease-in-out 3;
 }
 
 .trend-arrow.down {
   background: rgba(184, 74, 98, 0.1);
   color: var(--rose);
-  animation: arrow-fall 1.5s ease-in-out infinite;
+  animation: arrow-fall 1.5s ease-in-out 3;
 }
 
 @keyframes arrow-rise {
@@ -775,6 +772,10 @@ textarea.control {
     min-height: 118px;
   }
 
+  .metric-value {
+    font-size: clamp(20px, 5vw, 24px);
+  }
+
   .metric-top {
     font-size: 12px;
   }
@@ -842,7 +843,7 @@ textarea.control {
   }
 
   .metrics {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
   .panel .metrics {
@@ -861,7 +862,7 @@ textarea.control {
   }
 
   .metrics {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
   .metric-card {
@@ -873,10 +874,6 @@ textarea.control {
 @media (min-width: 1280px) {
   :root {
     --page-max: 1320px;
-  }
-
-  .metrics {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .panel .metrics {
