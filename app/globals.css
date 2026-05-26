@@ -524,25 +524,44 @@ textarea.control {
   gap: 8px;
 }
 
+.compact-payment {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .segment {
-  min-height: var(--tap-size);
+  min-height: 44px;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 12px;
+  gap: 6px;
+  padding: 8px 10px;
   background: rgba(255, 255, 255, 0.84);
   color: var(--muted);
   font-weight: 800;
+  white-space: nowrap;
 }
 
-.segment.active {
+.segment-paid.active {
   border-color: rgba(47, 125, 75, 0.35);
   background: linear-gradient(180deg, #eef7f0, #e5f2e8);
   color: var(--green);
   box-shadow: 0 8px 18px rgba(47, 125, 75, 0.12);
+}
+
+.segment-unpaid.active {
+  border-color: rgba(184, 74, 98, 0.35);
+  background: linear-gradient(180deg, #fff1f3, #f8e1e6);
+  color: var(--rose);
+  box-shadow: 0 8px 18px rgba(184, 74, 98, 0.12);
+}
+
+.segment-partial.active {
+  border-color: rgba(169, 111, 0, 0.35);
+  background: linear-gradient(180deg, #fff8e8, #f5e8c2);
+  color: var(--amber);
+  box-shadow: 0 8px 18px rgba(169, 111, 0, 0.12);
 }
 
 .btn {
@@ -744,7 +763,7 @@ textarea.control {
   }
 
   .compact-row-sale {
-    grid-template-columns: minmax(240px, 1fr) 190px;
+    grid-template-columns: minmax(220px, 1fr) 160px minmax(300px, 0.9fr);
   }
 
   .sale-item {

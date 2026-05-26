@@ -133,6 +133,26 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
               <span>รับเงินเข้า</span>
               <WalletSelect value={form.wallet_to} onChange={(value) => update("wallet_to", value)} />
             </label>
+            <label className="field">
+              <span>สถานะจ่ายเงิน</span>
+              <div className="segmented compact-payment" role="group" aria-label="สถานะจ่ายเงิน">
+                {(Object.keys(paymentStatusLabels) as TransactionInput["payment_status"][]).map((status) => {
+                  const active = form.payment_status === status;
+                  const Icon = active ? CheckCircle2 : Circle;
+                  return (
+                    <button
+                      className={`segment segment-${status} ${active ? "active" : ""}`}
+                      key={status}
+                      type="button"
+                      onClick={() => update("payment_status", status)}
+                    >
+                      <Icon size={15} aria-hidden />
+                      {paymentStatusLabels[status]}
+                    </button>
+                  );
+                })}
+              </div>
+            </label>
           </div>
         )}
 
@@ -204,41 +224,17 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
         )}
 
         <div className="grid">
-          {isSale && (
-            <>
+          {isSale && form.payment_status === "partial" && (
+            <div className="two-col">
               <label className="field">
-                <span>สถานะจ่ายเงิน</span>
-                <div className="segmented" role="group" aria-label="สถานะจ่ายเงิน">
-                  {(Object.keys(paymentStatusLabels) as TransactionInput["payment_status"][]).map((status) => {
-                    const active = form.payment_status === status;
-                    const Icon = active ? CheckCircle2 : Circle;
-                    return (
-                      <button
-                        className={`segment ${active ? "active" : ""}`}
-                        key={status}
-                        type="button"
-                        onClick={() => update("payment_status", status)}
-                      >
-                        <Icon size={17} aria-hidden />
-                        {paymentStatusLabels[status]}
-                      </button>
-                    );
-                  })}
-                </div>
+                <span>จ่ายแล้วบางส่วน</span>
+                <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(form.paid_amount)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => update("paid_amount", numberFromInput(event.target.value))} />
               </label>
-              {form.payment_status === "partial" && (
-                <div className="two-col">
-                  <label className="field">
-                    <span>จ่ายแล้วบางส่วน</span>
-                    <input className="control" type="text" inputMode="decimal" placeholder="0" value={numberValue(form.paid_amount)} onFocus={(event) => event.currentTarget.select()} onChange={(event) => update("paid_amount", numberFromInput(event.target.value))} />
-                  </label>
-                  <label className="field">
-                    <span>ค้างจ่าย</span>
-                    <input className="control money-negative" readOnly value={Math.max(0, totals.sales - Number(form.paid_amount || 0)).toLocaleString("th-TH")} />
-                  </label>
-                </div>
-              )}
-            </>
+              <label className="field">
+                <span>ค้างจ่าย</span>
+                <input className="control money-negative" readOnly value={Math.max(0, totals.sales - Number(form.paid_amount || 0)).toLocaleString("th-TH")} />
+              </label>
+            </div>
           )}
           <label className="field">
             <span>หมายเหตุ</span>
