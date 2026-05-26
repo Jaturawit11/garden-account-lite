@@ -87,7 +87,9 @@ export async function saveTransaction(input: TransactionInput): Promise<void> {
         transaction_id: data.id,
         plant_name: item.plant_name,
         cost: Number(item.cost || 0),
-        sale_price: Number(item.sale_price || 0)
+        sale_price: Number(item.sale_price || 0),
+        delivery_status: item.delivery_status ?? "holding",
+        delivered_at: item.delivery_status === "delivered" ? item.delivered_at ?? new Date().toISOString() : null
       }));
       const { error: itemError } = await supabase.from("sale_items").insert(rows);
       if (itemError) throw itemError;
@@ -104,5 +106,31 @@ export async function deleteTransaction(id: string): Promise<void> {
   }
 
   const { error } = await supabase.from("transactions").delete().eq("id", id);
+  if (error) throw error;
+}
+
+export async function updateSaleItemDelivery(itemId: string, status: "holding" | "delivered"): Promise<void> {
+  if (!supabase) {
+    saveLocal(
+      localTransactions().map((transaction) => ({
+        ...transaction,
+        sale_items: (transaction.sale_items ?? []).map((item) =>
+          item.id === itemId
+            ? { ...item, delivery_status: status, delivered_at: status === "delivered" ? new Date().toISOString() : null }
+            : item
+        )
+      }))
+    );
+    return;
+  }
+
+  const { error } = await supabase
+    .from("sale_items")
+    .update({
+      delivery_status: status,
+      delivered_at: status === "delivered" ? new Date().toISOString() : null
+    })
+    .eq("id", itemId);
+
   if (error) throw error;
 }

@@ -12,7 +12,7 @@ type TransactionFormProps = {
   onCancel?: () => void;
 };
 
-const emptySaleItem: SaleItem = { plant_name: "", cost: 0, sale_price: 0 };
+const emptySaleItem: SaleItem = { plant_name: "", cost: 0, sale_price: 0, delivery_status: "holding", delivered_at: null };
 const numberValue = (value: number | undefined) => (Number(value || 0) === 0 ? "" : String(value));
 const numberFromInput = (value: string) => {
   const cleaned = value.replace(/,/g, "").replace(/[^\d.]/g, "");

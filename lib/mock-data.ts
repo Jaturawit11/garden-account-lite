@@ -30,8 +30,8 @@ export const seedTransactions: Transaction[] = [
     payment_status: "paid",
     note: null,
     sale_items: [
-      { plant_name: "มอนสเตอร่า", cost: 650, sale_price: 1200 },
-      { plant_name: "ฟิโลเดนดรอน", cost: 300, sale_price: 600 }
+      { plant_name: "มอนสเตอร่า", cost: 650, sale_price: 1200, delivery_status: "holding", delivered_at: null },
+      { plant_name: "ฟิโลเดนดรอน", cost: 300, sale_price: 600, delivery_status: "holding", delivered_at: null }
     ]
   }
 ];

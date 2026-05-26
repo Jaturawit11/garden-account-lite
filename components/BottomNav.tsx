@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Home, ListFilter, PlusCircle } from "lucide-react";
+import { BarChart3, Home, ListFilter, PlusCircle, Truck } from "lucide-react";
 
 const links = [
   { href: "/", label: "แดชบอร์ด", icon: Home },
   { href: "/add", label: "เพิ่ม", icon: PlusCircle },
   { href: "/transactions", label: "รายการ", icon: ListFilter },
+  { href: "/shipping", label: "ฝากส่ง", icon: Truck },
   { href: "/summary", label: "สรุป", icon: BarChart3 }
 ];
 

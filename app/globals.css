@@ -157,9 +157,9 @@ button {
   bottom: calc(14px + env(safe-area-inset-bottom));
   z-index: 30;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-  width: min(456px, calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+  width: min(520px, calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));
   padding: 9px;
   transform: translateX(-50%);
   border: 1px solid var(--line);
@@ -724,6 +724,86 @@ textarea.control {
   color: var(--muted);
 }
 
+.shipping-toolbar {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  color: var(--muted);
+}
+
+.input-with-icon .control {
+  padding-left: 42px;
+}
+
+.delivery-list {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.delivery-card {
+  display: grid;
+  gap: 16px;
+}
+
+.delivery-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.delivery-head h2 {
+  margin-bottom: 4px;
+}
+
+.delivery-items {
+  display: grid;
+  gap: 10px;
+}
+
+.delivery-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(246, 248, 246, 0.78);
+}
+
+.delivery-pill {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.delivery-pill.holding {
+  background: #fff8e8;
+  color: var(--amber);
+}
+
+.delivery-pill.delivered {
+  background: #eef7f0;
+  color: var(--green);
+}
+
+.delivery-action {
+  min-height: 42px;
+  white-space: nowrap;
+}
+
 @media (min-width: 720px) {
   .topbar-inner,
   .page {
@@ -737,7 +817,7 @@ textarea.control {
   .nav {
     position: static;
     width: auto;
-    min-width: 440px;
+    min-width: 520px;
     transform: none;
     border-radius: 22px;
     box-shadow: var(--shadow-soft);
@@ -760,6 +840,11 @@ textarea.control {
 
   .toolbar {
     grid-template-columns: 1.4fr repeat(3, 1fr);
+    align-items: end;
+  }
+
+  .shipping-toolbar {
+    grid-template-columns: minmax(280px, 1fr) 220px;
     align-items: end;
   }
 
@@ -847,8 +932,14 @@ textarea.control {
   }
 
   .transaction-head,
-  .item-line {
+  .item-line,
+  .delivery-item {
     flex-direction: column;
+  }
+
+  .delivery-item {
+    grid-template-columns: 1fr;
+    align-items: stretch;
   }
 
   .amount {

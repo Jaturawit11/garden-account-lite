@@ -11,6 +11,7 @@ export type TransactionType =
 
 export type PaymentStatus = "paid" | "unpaid" | "partial";
 export type CustomerCountry = "TH" | "US" | "PH" | "VN" | "ID" | "SG";
+export type DeliveryStatus = "holding" | "delivered";
 
 export type SaleItem = {
   id?: string;
@@ -19,6 +20,8 @@ export type SaleItem = {
   cost: number;
   sale_price: number;
   profit?: number;
+  delivery_status?: DeliveryStatus;
+  delivered_at?: string | null;
 };
 
 export type Transaction = {
@@ -71,4 +74,9 @@ export const customerCountryLabels: Record<CustomerCountry, string> = {
   VN: "🇻🇳 เวียดนาม",
   ID: "🇮🇩 อินโด",
   SG: "🇸🇬 สิงคโปร์"
+};
+
+export const deliveryStatusLabels: Record<DeliveryStatus, string> = {
+  holding: "ฝากไว้",
+  delivered: "ส่งแล้ว"
 };
