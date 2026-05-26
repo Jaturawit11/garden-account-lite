@@ -51,9 +51,9 @@ export default function TransactionsPage() {
     <main className="page">
       <Toast message={message} onClose={() => setMessage("")} />
       <section className="hero">
-        <p className="eyebrow">รายการทั้งหมด</p>
-        <h1>ดู กรอง ค้นหา แก้ไข และลบธุรกรรม</h1>
-        <p className="subtle">เมื่อใช้ Supabase การแก้ไขและลบจะถูกเก็บในตารางประวัติ audit_logs</p>
+        <p className="eyebrow">Transactions</p>
+        <h1>Search Edit Delete</h1>
+        <p className="subtle">ดูรายการทั้งหมด กรองวันที่ ค้นหาลูกค้า/ต้นไม้ และแก้ไขรายการย้อนหลังได้</p>
       </section>
 
       {editing && (

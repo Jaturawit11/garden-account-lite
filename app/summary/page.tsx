@@ -43,9 +43,9 @@ export default function SummaryPage() {
   return (
     <main className="page">
       <section className="hero">
-        <p className="eyebrow">สรุป</p>
-        <h1>สรุปยอดรายวัน รายเดือน รายปี หรือเลือกช่วงเอง</h1>
-        <p className="subtle">แสดงยอดขาย รายจ่าย กำไร ทุนค้าง และจำนวนบิล</p>
+        <p className="eyebrow">Summary</p>
+        <h1>Daily Monthly Yearly</h1>
+        <p className="subtle">ดูยอดขาย รายจ่าย กำไร ทุนค้าง จำนวนบิล และเลือกช่วงวันที่เองได้</p>
       </section>
 
       <section className="section card panel">
