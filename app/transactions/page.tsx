@@ -64,11 +64,15 @@ export default function TransactionsPage() {
             initial={editing}
             onCancel={() => setEditing(null)}
             onSubmit={async (input) => {
-              await saveTransaction(input);
-              setEditing(null);
-              setMessage("แก้ไขรายการสำเร็จ");
-              window.setTimeout(() => setMessage(""), 2600);
-              await load();
+              try {
+                await saveTransaction(input);
+                setEditing(null);
+                setMessage("แก้ไขรายการสำเร็จ");
+                window.setTimeout(() => setMessage(""), 2600);
+                await load();
+              } catch (error) {
+                setMessage(error instanceof Error ? error.message : "แก้ไขรายการไม่สำเร็จ");
+              }
             }}
           />
         </section>
@@ -106,10 +110,14 @@ export default function TransactionsPage() {
               transaction={transaction}
               onEdit={() => setEditing(transaction)}
               onDelete={async () => {
-                await deleteTransaction(transaction.id);
-                setMessage("ลบรายการสำเร็จ");
-                window.setTimeout(() => setMessage(""), 2600);
-                await load();
+                try {
+                  await deleteTransaction(transaction.id);
+                  setMessage("ลบรายการสำเร็จ");
+                  window.setTimeout(() => setMessage(""), 2600);
+                  await load();
+                } catch (error) {
+                  setMessage(error instanceof Error ? error.message : "ลบรายการไม่สำเร็จ");
+                }
               }}
             />
           ))}
