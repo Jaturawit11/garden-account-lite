@@ -170,9 +170,7 @@ export function normalizeInput(input: TransactionInput): TransactionInput {
     };
   }
 
-  if (input.payment_status === "unpaid") return { ...input, paid_amount: 0 };
-  if (input.payment_status === "paid") return { ...input, paid_amount: Number(input.amount || 0) };
-  return input;
+  return { ...input, payment_status: "paid", paid_amount: Number(input.amount || 0) };
 }
 
 export function typeMatches(transaction: Transaction, type: TransactionType | "all") {

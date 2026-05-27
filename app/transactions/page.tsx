@@ -142,8 +142,9 @@ function TransactionCard({ transaction, onEdit, onDelete }: { transaction: Trans
             {transaction.customer_name || transaction.description || "ไม่มีชื่อรายการ"}
           </h3>
           <div className="meta">
-            {billCode(transaction.id)} | {transaction.transaction_date} | {paymentStatusLabels[transaction.payment_status]}
-            {transaction.payment_status === "partial" && ` | จ่ายแล้ว ${toMoney(transaction.paid_amount)}`}
+            {billCode(transaction.id)} | {transaction.transaction_date}
+            {transaction.type === "sale" && ` | ${paymentStatusLabels[transaction.payment_status]}`}
+            {transaction.type === "sale" && transaction.payment_status === "partial" && ` | จ่ายแล้ว ${toMoney(transaction.paid_amount)}`}
           </div>
         </div>
         <div className={`amount ${moneyTone(cashImpact)}`}>{cashImpact === 0 ? toMoney(amount) : toSignedMoney(cashImpact)}</div>

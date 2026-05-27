@@ -56,7 +56,8 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
       customer_name: type === "sale" ? current.customer_name : "",
       customer_country: type === "sale" ? current.customer_country : null,
       wallet_from: type === "wallet_transfer" ? "time" : ["plant_purchase", "business_expense", "personal_expense"].includes(type) ? current.wallet_from ?? "time" : null,
-      wallet_to: ["sale", "opening_balance", "other_income"].includes(type) ? current.wallet_to ?? "time" : type === "wallet_transfer" ? "nisa" : null
+      wallet_to: ["sale", "opening_balance", "other_income"].includes(type) ? current.wallet_to ?? "time" : type === "wallet_transfer" ? "nisa" : null,
+      payment_status: type === "sale" ? current.payment_status : "paid"
     }));
   }
 
@@ -75,16 +76,18 @@ export function TransactionForm({ initial, onSubmit, onCancel }: TransactionForm
     setSaving(true);
     try {
       const fullAmount = isSale ? totals.sales : Number(form.amount || 0);
-      const paidAmount =
-        form.payment_status === "paid"
+      const paidAmount = isSale
+        ? form.payment_status === "paid"
           ? fullAmount
           : form.payment_status === "unpaid"
             ? 0
-            : Number(form.paid_amount || 0);
+            : Number(form.paid_amount || 0)
+        : fullAmount;
       await onSubmit({
         ...form,
         amount: fullAmount,
         paid_amount: paidAmount,
+        payment_status: isSale ? form.payment_status : "paid",
         sale_items: isSale ? (form.sale_items ?? []).filter((item) => item.plant_name.trim()) : []
       });
       if (!initial) {
